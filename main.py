@@ -1,15 +1,19 @@
 import discord
 import os
+# from discord.ext import commands
+from dotenv import load_dotenv
 
-client = discord.Client()
 
-@client.event
+bot = discord.Bot()
+guild = [1131313562162319481]
+load_dotenv()
+
+@bot.event
 async def on_ready():
-    print("We have logged in as {0.user}".format(client))
+    print(f"We have logged in as {bot.user}")  
     
-@client.event
-async def on_message(message):
-    if message.content.startswidth('$hello'):
-        await message.channel.send("Hello World")
+@bot.slash_command(name="ping", description="Test Ping", guild_ids=guild)
+async def ping2(ctx):
+    await ctx.respond("Pong!")
         
-client.run()
+bot.run(os.getenv('TOKEN'))
